@@ -82,19 +82,43 @@
                         </ul>
 					</section>
                     <section>
+                        <p>Où me trouver?</p>
+                        <ul>
+                            <li>Twitter : <a href="https://twitter.com/ybonnel">@ybonnel</a></li>
+                            <li>Github : <a href="https://github.com/ybonnel">ybonnel</a></li>
+                            <li>Blog : <a href="http://www.ybonnel.fr">www.ybonnel.fr</a></li>
+                        </ul>
+                    </section>
+                    <section>
                         <h2>&lt;/ME&gt;</h2>
                     </section>
 				</section>
                 <section>
-                    <h1>C'est quoi?</h1>
-                    <p class="fragment">Encore un framework web!</p>
+                    <section>
+                        <h2>SimpleWeb4j, c'est quoi?</h2>
+                        <p class="fragment">Encore un framework web!</p>
+                    </section>
+                    <section>
+                        <h2>Pourquoi encore un?</h2>
+                        <p class="fragment">Mouvence MVC Client</p>
+                        <p class="fragment">Léger</p>
+                        <p class="fragment">Rapide à mettre en place</p>
+                        <p class="fragment">Facile à deployer</p>
+                    </section>
                 </section>
-				<section>
-					<h2>Pourquoi?</h2>
-                    <p class="fragment">Mouvence MVC Client</p>
-                    <p class="fragment">Léger</p>
-                    <p class="fragment">Rapide à mettre en place</p>
-				</section>
+                <section>
+                    <section>
+                        <h2>Application Démo</h2>
+                        <p>Gestion d'une carte de galettes saussices</p>
+                        <p style="font-size:18px">Oui! Rennes me manque :)</p>
+                    </section>
+                    <section>
+                        <h3>Fonctionnalités :</h3>
+                        <p class="fragment">CRUD des galettes</p>
+                        <p class="fragment">Affichage de la carte</p>
+                        <p class="fragment">Gestion des utilisateurs <span class="fragment" style="font-size:18px">(si on a le temps)</span></p>
+                    </section>
+                </section>
 				<section>
 					<section>
 						<h2>Création du projet</h2>
@@ -112,36 +136,60 @@
   -DwithHibernate=false
   -Dversion=0.0.1-snapshot</code></pre>
 					</section>
+                    <section>
+                        <h2>Paramètres de l'archetype</h2>
+                        <p class="fragment" style="font-size: 22px"><span style="text-decoration: underline;">className :</span> nom de la classe principale (HelloWorld par défaut)</p>
+                        <p class="fragment" style="font-size: 22px"><span style="text-decoration: underline;">withHibernate :</span> utilisation ou non d'hibernate (true par défaut)</p>
+                    </section>
 				</section>
 				<section>
 					<section>
                         <h2>Création des resources</h2>
+                        <br/>
+                        <div class="fragment">
+                            <h3>Besoins :</h3>
+                            <ul>
+                                <li>Un service getById</li>
+                                <li>Un service getAll</li>
+                                <li>Un service update</li>
+                                <li>Un service create</li>
+                                <li>Un service delete</li>
+                            </ul>
+                        </div>
                     </section>
                     <section>
 						<p>SimpleWeb4j.resource()</p>
-						<p><br></p>
+                        <br/>
 						<p>Test via Http</p>
 					</section>
 				</section>
 				<section>
 					<section>
 						<h2>IHM</h2>
+                        <br/>
+                        <h3 class="fragment">Vive Angular!</h3>
 					</section>
-					<section>
-						<h2>VIVE ANGULAR</h2>
-					</section>
 				</section>
 				<section>
-					<h2>TEST</h2>
+					<h2>Tests</h2>
 				</section>
 				<section>
-					<h2>FILTER</h2>
+					<h2>Filters</h2>
 				</section>
 				<section>
-					<h2>LIENS</h2>
+					<h2>Liens :</h2>
+                    <ul>
+                        <li>SimpleWeb4j : <a href="https://github.com/ybonnel/SimpleWeb4j">ybonnel/SimpleWeb4j</a></li>
+                        <li>Slides : <a href="http://ybonnel.github.io/simpleweb4j-slides">ybonnel.github.io/simpleweb4j-slides</a></li>
+                        <li>Démo : <a href="https://github.com/ybonnel/simpleweb4j-bzh13-demo">ybonnel/simpleweb4j-bzh13-demo</a></li>
+                    </ul>
 				</section>
 			</div>
 		</div>
+
+        <div style="display:block;position:absolute;bottom:0;left:0;margin:25px">
+            <img src="http://www.breizhcamp.org/img/logo.png" height="50%" width="50%"/>
+        </div>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.min.js"></script>
@@ -156,7 +204,7 @@
 				history: true,
 				center: true,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Optional libraries used to extend on reveal.js
@@ -166,9 +214,9 @@
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
-					{ src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
 
