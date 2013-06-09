@@ -125,15 +125,15 @@
 						<div>Utilisation de l'archetype maven</div>
 					</section>
 					<section>
-						<pre style="font-size: 24px;"><code>mvn archetype:generate
-  -DarchetypeGroupId=fr.ybonnel
-  -DarchetypeArtifactId=simpleweb4j-archetype
-  -DarchetypeVersion=0.0.4
-  -DgroupId=fr.ybonnel
-  -DartifactId=breizhcamp-demo
-  -Dpackage=fr.ybonnel.breizhcampdemo
-  -DclassName=BreizhcampDemo
-  -DwithHibernate=false
+						<pre style="font-size: 24px;"><code>mvn archetype:generate \
+  -DarchetypeGroupId=fr.ybonnel \
+  -DarchetypeArtifactId=simpleweb4j-archetype \
+  -DarchetypeVersion=0.0.4 \
+  -DgroupId=fr.ybonnel \
+  -DartifactId=breizhcamp-demo \
+  -Dpackage=fr.ybonnel.breizhcampdemo \
+  -DclassName=BreizhcampDemo \
+  -DwithHibernate=false \
   -Dversion=0.0.1-snapshot</code></pre>
 					</section>
                     <section>
@@ -159,8 +159,16 @@
                     </section>
                     <section>
 						<p>SimpleWeb4j.resource()</p>
+                        <pre><code>SimpleWeb4j.resource(new GaletteResource("galette"));</code></pre>
                         <br/>
 						<p>Test via Http</p>
+                        <pre><code>@Test
+public void should_return_no_galette() {
+    List&lt;Galette&gt; galettes = new Gson().fromJson(
+            HttpRequest.get(defaultUrl() + "/galette").body(),
+            new TypeToken&lt;List&lt;Class&gt;&gt;(){}.getType());
+    assertTrue(galettes.isEmpty());
+}</pre></code>
 					</section>
 				</section>
 				<section>
