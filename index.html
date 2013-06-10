@@ -13,6 +13,21 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+        <<style type="text/css">
+            .footer {
+                display:block;
+                position:absolute;
+                bottom:0;
+                width: 100%;
+                font-size: 22px;
+                text-align: center;
+                color:white;
+            }
+            .invisible {
+                display:none;
+            }
+        </style>
+
         <link rel="stylesheet" href="css/reveal.min.css">
         <link rel="stylesheet" href="css/theme/default.css" id="theme">
 
@@ -123,7 +138,6 @@
                     <section>
                         <h2>Création du projet</h2>
                         <div>Utilisation de l'archetype maven</div>
-                        <p style="font-size:18px"><br/>step1</p>
                     </section>
                     <section>
                         <pre style="font-size: 24px;"><code>mvn archetype:generate \
@@ -136,13 +150,11 @@
   -DclassName=BreizhcampDemo \
   -DwithHibernate=false \
   -Dversion=0.0.1-snapshot</code></pre>
-                        <p style="font-size:18px"><br/>step1</p>
                     </section>
                     <section>
                         <h2>Paramètres de l'archetype</h2>
                         <p class="fragment" style="font-size: 22px"><span style="text-decoration: underline;">className :</span> nom de la classe principale (HelloWorld par défaut)</p>
                         <p class="fragment" style="font-size: 22px"><span style="text-decoration: underline;">withHibernate :</span> utilisation ou non d'hibernate (true par défaut)</p>
-                        <p style="font-size:18px"><br/>step1</p>
                     </section>
                 </section>
                 <section>
@@ -159,7 +171,6 @@
                                 <li>Un service delete</li>
                             </ul>
                         </div>
-                        <p style="font-size:18px"><br/>step2</p>
                     </section>
                     <section>
                         <p>SimpleWeb4j.resource()</p>
@@ -173,7 +184,6 @@ public void should_return_no_galette() {
             new TypeToken&lt;List&lt;Class&gt;&gt;(){}.getType());
     assertTrue(galettes.isEmpty());
 }</pre></code>
-                        <p style="font-size:18px"><br/>step2</p>
                     </section>
                 </section>
                 <section>
@@ -181,13 +191,10 @@ public void should_return_no_galette() {
                         <h2>IHM</h2>
                         <br/>
                         <h3 class="fragment">Vive Angular!</h3>
-                        <p style="font-size:18px"><br/>step3</p>
-                        <p style="font-size:18px"><br/>step5</p>
                     </section>
                 </section>
                 <section>
                     <h2>Tests IHM</h2>
-                    <p style="font-size:18px"><br/>step4</p>
                 </section>
                 <section>
                     <h2>Filters</h2>
@@ -203,6 +210,14 @@ public void should_return_no_galette() {
                     </ul>
                 </section>
             </div>
+        </div>
+
+        <div class="footer">
+            <p class="note slide3">step0</p>
+            <p class="note slide4">step1</p>
+            <p class="note slide5">step2</p>
+            <p class="note slide6">step3 - step5</p>
+            <p class="note slide7">step4</p>
         </div>
 
         <div style="display:block;position:absolute;bottom:0;left:0;margin:25px">
@@ -237,6 +252,25 @@ public void should_return_no_galette() {
                     // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
                 ]
             });
+
+            function changeNote(slideNum) {
+                var notes = document.querySelectorAll(".note");
+                for (var i = 0; i < notes.length; i++) {
+                    notes[i].classList.add("invisible");
+                }
+                if (document.querySelector(".slide" + slideNum)) {
+                    document.querySelector(".slide" + slideNum).classList.remove("invisible");
+                }
+            }
+
+
+            Reveal.addEventListener( 'ready', function( event ) {
+                changeNote(event.indexh);
+            } );
+
+            Reveal.addEventListener( 'slidechanged', function( event ) {
+                changeNote(event.indexh);
+            } );
 
         </script>
 
