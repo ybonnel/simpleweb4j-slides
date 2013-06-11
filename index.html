@@ -175,14 +175,23 @@
                     <section>
                         <p>SimpleWeb4j.resource()</p>
                         <pre class="fragment"><code>SimpleWeb4j.resource(new GaletteResource("galette"));</code></pre>
-                        <br/>
                         <p>Test via Http</p>
-                        <pre class="fragment"><code>@Test
-public void should_return_no_galette() {
-    List&lt;Galette&gt; galettes = new Gson().fromJson(
-            HttpRequest.get(defaultUrl() + "/galette").body(),
-            new TypeToken&lt;List&lt;Class&gt;&gt;(){}.getType());
-    assertTrue(galettes.isEmpty());
+                        <pre class="fragment"><code>public class BreizhcampDemoTest extends SimpleWeb4jTest {
+    @Before
+    public void setup() {
+        BreizhcampDemo.startServer(getPort(), false);
+    }
+    @After
+    public void tearDown() {
+        stop();
+    }
+    @Test
+    public void should_return_no_galette() {
+        List&lt;Galette&gt; galettes = new Gson().fromJson(
+                HttpRequest.get(defaultUrl() + "/galette").body(),
+                new TypeToken&lt;List&lt;Class&gt;&gt;(){}.getType());
+        assertTrue(galettes.isEmpty());
+    }
 }</pre></code>
                     </section>
                 </section>
@@ -195,11 +204,53 @@ public void should_return_no_galette() {
                 </section>
                 <section>
                     <h2>Tests IHM</h2>
+                    <pre class="fragment"><code>public class BreizhcampDemoWebTest extends SimpleWeb4jTest {
+    @Before
+    public void setup() {
+        BreizhcampDemo.startServer(getPort(), false);
+        goTo("/");
+    }
+    @After
+    public void tearDown() {
+        stop();
+    }
+    @Test
+    public void should_not_have_galette() {
+        assertThat(find("tbody tr")).isEmpty();
+    }
+}</code></pre>
                 </section>
                 <section>
-                    <h2>Filters</h2>
-                    <br/>
-                    <p>Filtre à appliquer sur toutes les requètes (exemple : sécurité)</p>
+                    <section>
+                        <h2>Filters</h2>
+                        <br/>
+                        <p>Filtre à appliquer sur toutes les requètes (exemple : sécurité)</p>
+                    </section>
+                    <section>
+                        <h4>Création d'un AbstractFilter</h4>
+                        <pre class="fragment"><code>public class SecurityFilter extends AbstractFilter {
+    @Override
+    public void handle(Route route, RouteParameters routeParams)
+            throws HttpErrorException {
+        if (!"admin".equals(routeParams.getParam("login"))
+                || !"admin".equals(routeParams.getParam("password"))) {
+            throw new HttpErrorException(
+                    HttpServletResponse.SC_UNAUTHORIZED);
+        }
+    }
+}</code></pre>
+                        <h4>Ajout du filtre à SimpleWeb4j</h4>
+                        <pre class="fragment"><code>SimpleWeb4j.addFilter(new SecurityFilter());</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <h2>Déploiement</h2>
+                    <div class='fragment'>
+                        <h4>Cloudbees</h4>
+                        <pre><code>mvn clean install package
+cd scripts
+deploybees ybonnel/bzh-demo</code></pre>
+                    </div>
                 </section>
                 <section>
                     <h2>Liens :</h2>
@@ -218,6 +269,7 @@ public void should_return_no_galette() {
             <p class="note slide5">step2</p>
             <p class="note slide6">step3 - step5</p>
             <p class="note slide7">step4</p>
+            <p class="note slide8">step6</p>
         </div>
 
         <div style="display:block;position:absolute;bottom:0;left:0;margin:25px">
