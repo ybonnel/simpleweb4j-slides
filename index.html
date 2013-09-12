@@ -13,7 +13,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <<style type="text/css">
+        <style type="text/css">
             .footer {
                 display:block;
                 position:absolute;
@@ -124,38 +124,25 @@
                 <section>
                     <section>
                         <h2>Application Démo</h2>
-                        <p>Gestion d'une carte de galettes saucisses</p>
-                        <p style="font-size:18px">Oui! Rennes me manque :)</p>
+                        <p>Gestion d'une carte de cidre</p>
                     </section>
                     <section>
                         <h3>Fonctionnalités :</h3>
-                        <p class="fragment">CRUD des galettes</p>
+                        <p class="fragment">CRUD des cidres</p>
                         <p class="fragment">Affichage de la carte</p>
                         <p class="fragment">Gestion des utilisateurs <span class="fragment" style="font-size:18px">(si on a le temps)</span></p>
-                        <p class="fragment">Déploiement <span class="fragment" style="font-size:18px">(si on a le temps)</span></p>
                     </section>
                 </section>
                 <section>
                     <section>
                         <h2>Création du projet</h2>
-                        <div>Utilisation de l'archetype maven</div>
+                        <div>Utilisation du clickstart cloudbees</div>
                     </section>
                     <section>
-                        <pre style="font-size: 24px;"><code>mvn archetype:generate \
-  -DarchetypeGroupId=fr.ybonnel \
-  -DarchetypeArtifactId=simpleweb4j-archetype \
-  -DarchetypeVersion=0.0.4 \
-  -DgroupId=fr.ybonnel \
-  -DartifactId=breizhcamp-demo \
-  -Dpackage=fr.ybonnel.breizhcampdemo \
-  -DclassName=BreizhcampDemo \
-  -DwithHibernate=false \
-  -Dversion=0.0.1-snapshot</code></pre>
-                    </section>
-                    <section>
-                        <h2>Paramètres de l'archetype</h2>
-                        <p class="fragment" style="font-size: 22px"><span style="text-decoration: underline;">className :</span> nom de la classe principale (HelloWorld par défaut)</p>
-                        <p class="fragment" style="font-size: 22px"><span style="text-decoration: underline;">withHibernate :</span> utilisation ou non d'hibernate (true par défaut)</p>
+                        <a href="https://grandcentral.cloudbees.com/#doClickStart"
+                           target="_blank">
+                            https://grandcentral.cloudbees.com/#doClickStart
+                        </a>
                     </section>
                 </section>
                 <section>
@@ -175,23 +162,23 @@
                     </section>
                     <section>
                         <p>SimpleWeb4j.resource()</p>
-                        <pre class="fragment"><code>SimpleWeb4j.resource(new GaletteResource("galette"));</code></pre>
+                        <pre class="fragment"><code>SimpleWeb4j.resource(new CidreResource("cidre"));</code></pre>
                         <p>Test via Http</p>
-                        <pre class="fragment"><code>public class BreizhcampDemoTest extends SimpleWeb4jTest {
+                        <pre class="fragment"><code>public class CidreTest extends SimpleWeb4jTest {
     @Before
     public void setup() {
-        BreizhcampDemo.startServer(getPort(), false);
+        Main.startServer(getPort(), false);
     }
     @After
     public void tearDown() {
         stop();
     }
     @Test
-    public void should_return_no_galette() {
-        List&lt;Galette&gt; galettes = new Gson().fromJson(
-                HttpRequest.get(defaultUrl() + "/galette").body(),
-                new TypeToken&lt;List&lt;Class&gt;&gt;(){}.getType());
-        assertTrue(galettes.isEmpty());
+    public void should_return_no_cidre() {
+        List&lt;Cidre&gt; cidres = new Gson().fromJson(
+                HttpRequest.get(defaultUrl() + "/cidre").body(),
+                new TypeToken&lt;List&lt;Cidre&gt;&gt;(){}.getType());
+        assertTrue(cidres.isEmpty());
     }
 }</pre></code>
                     </section>
@@ -205,10 +192,10 @@
                 </section>
                 <section>
                     <h2>Tests IHM</h2>
-                    <pre class="fragment"><code>public class BreizhcampDemoWebTest extends SimpleWeb4jTest {
+                    <pre class="fragment"><code>public class CidreWebTest extends SimpleWeb4jTest {
     @Before
     public void setup() {
-        BreizhcampDemo.startServer(getPort(), false);
+        Main.startServer(getPort(), false);
         goTo("/");
     }
     @After
@@ -216,7 +203,7 @@
         stop();
     }
     @Test
-    public void should_not_have_galette() {
+    public void should_not_have_cidre() {
         assertThat(find("tbody tr")).isEmpty();
     }
 }</code></pre>
@@ -245,36 +232,29 @@
                     </section>
                 </section>
                 <section>
-                    <h2>Déploiement</h2>
-                    <div class='fragment'>
-                        <h4>Cloudbees</h4>
-                        <pre><code>mvn clean install package
-cd scripts
-deploybees ybonnel/bzh-demo</code></pre>
-                    </div>
+                    <h1>Questions?</h1>
                 </section>
                 <section>
                     <h2>Liens :</h2>
                     <ul>
                         <li>SimpleWeb4j : <a href="https://github.com/ybonnel/SimpleWeb4j">ybonnel/SimpleWeb4j</a></li>
                         <li>Slides : <a href="http://ybonnel.github.io/simpleweb4j-slides">ybonnel.github.io/simpleweb4j-slides</a></li>
-                        <li>Démo : <a href="https://github.com/ybonnel/simpleweb4j-bzh13-demo">ybonnel/simpleweb4j-bzh13-demo</a></li>
+                        <li>Démo : <a href="https://github.com/ybonnel/simpleweb4j-normandyjug-demo">ybonnel/simpleweb4j-normandyjug-demo</a></li>
                     </ul>
                 </section>
             </div>
         </div>
 
         <div class="footer">
-            <p class="note slide3 invisible">step0</p>
-            <p class="note slide4 invisible">step1</p>
-            <p class="note slide5 invisible">step2</p>
-            <p class="note slide6 invisible">step3 - step5</p>
-            <p class="note slide7 invisible">step4</p>
-            <p class="note slide8 invisible">step6</p>
+            <p class="note slide4 invisible">step0</p>
+            <p class="note slide5 invisible">step1</p>
+            <p class="note slide6 invisible">step2</p>
+            <p class="note slide7 invisible">step2</p>
+            <p class="note slide8 invisible">step3</p>
         </div>
 
         <div style="display:block;position:absolute;bottom:0;left:0;margin:25px">
-            <img src="img/logo-breizhcamp.png" height="50%" width="50%"/>
+            <img src="img/logo.png"/>
         </div>
 
         <script src="lib/js/head.min.js"></script>
