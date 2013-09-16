@@ -162,9 +162,9 @@
                     </section>
                     <section>
                         <p>SimpleWeb4j.resource()</p>
-                        <pre class="fragment"><code>SimpleWeb4j.resource(new CidreResource("cidre"));</code></pre>
+                        <pre class="fragment"><code class="java">SimpleWeb4j.resource(new CidreResource("cidre"));</code></pre>
                         <p>Test via Http</p>
-                        <pre class="fragment"><code>public class CidreTest extends SimpleWeb4jTest {
+                        <pre class="fragment"><code class="java">public class CidreTest extends SimpleWeb4jTest {
     @Before
     public void setup() {
         Main.startServer(getPort(), false);
@@ -180,7 +180,7 @@
                 new TypeToken&lt;List&lt;Cidre&gt;&gt;(){}.getType());
         assertTrue(cidres.isEmpty());
     }
-}</pre></code>
+}</code></pre>
                     </section>
                 </section>
                 <section>
@@ -192,7 +192,7 @@
                 </section>
                 <section>
                     <h2>Tests IHM</h2>
-                    <pre class="fragment"><code>public class CidreWebTest extends SimpleWeb4jTest {
+                    <pre class="fragment"><code class="java">public class CidreWebTest extends SimpleWeb4jTest {
     @Before
     public void setup() {
         Main.startServer(getPort(), false);
@@ -216,7 +216,7 @@
                     </section>
                     <section>
                         <h4>Création d'un AbstractFilter</h4>
-                        <pre class="fragment"><code>public class SecurityFilter extends AbstractFilter {
+                        <pre class="fragment"><code class="java">public class SecurityFilter extends AbstractFilter {
     @Override
     public void handle(Route route, RouteParameters routeParams)
             throws HttpErrorException {
@@ -228,7 +228,26 @@
     }
 }</code></pre>
                         <h4>Ajout du filtre à SimpleWeb4j</h4>
-                        <pre class="fragment"><code>SimpleWeb4j.addFilter(new SecurityFilter());</code></pre>
+                        <pre class="fragment"><code class="java">SimpleWeb4j.addFilter(new SecurityFilter());</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Accès cross-site</h2>
+                        <p>Création d'un site hébergé ailleur utilisant le backend SompleWeb4j</p>
+                    </section>
+                    <section>
+                        <h4>Ajout d'un service JSONP</h4>
+                        <pre class="fragment"><code class="java">Route&lt;Void, List&lt;Cidre&gt;&gt; jsonpRoute =
+        new Route&lt;&gt;("/jsonp/cidre", Void.class) {
+    @Override
+    public Response&lt;List&lt;Cidre&gt;&gt; handle(
+            Void param, RouteParameters routeParameters) {
+        return cidreRessource.getAll();
+    }
+};
+jsonp("CALLBACK", jsonpRoute);
+</code></pre>
                     </section>
                 </section>
                 <section>
@@ -251,6 +270,7 @@
             <p class="note slide6 invisible">step2</p>
             <p class="note slide7 invisible">step2</p>
             <p class="note slide8 invisible">step3</p>
+            <p class="note slide9 invisible">step4</p>
         </div>
 
         <div style="display:block;position:absolute;bottom:0;left:0;margin:25px">
